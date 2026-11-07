@@ -1,0 +1,53 @@
+---
+const skills = ["React", "TypeScript", "Python", "PyTorch", "Go", "Flutter", "PostgreSQL", "Docker", "Figma"];
+---
+
+<div class="marquee" aria-label="Kullandığım teknolojiler">
+  <div class="band">
+    <div class="track">
+      {[0, 1].map((copy) => (
+        <ul aria-hidden={copy === 1 ? "true" : undefined}>
+          {skills.map((s) => (
+            <li>{s}<span>✦</span></li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    padding: 40px 0;
+  }
+  .band {
+    margin: 0 -40px;
+    padding: 20px 0;
+    background: var(--amber);
+    transform: rotate(-2.5deg);
+    box-shadow: 0 20px 50px rgba(14, 42, 71, 0.2);
+  }
+  .track {
+    display: flex;
+    width: max-content;
+    animation: slide 30s linear infinite;
+  }
+  .band:hover .track { animation-play-state: paused; }
+
+  ul {
+    display: flex;
+    list-style: none;
+    font-size: 32px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  li { display: flex; align-items: center; }
+  li span { margin: 0 24px; font-size: 0.8em; opacity: 0.6; }
+
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; }
+  }
+</style>

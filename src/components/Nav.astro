@@ -1,0 +1,83 @@
+---
+const links = [
+  { label: "anasayfa", href: "/" },
+  { label: "projeler", href: "#projeler" },
+  { label: "hakkımda", href: "#hakkimda" },
+  { label: "iletişim", href: "#iletisim" },
+];
+const current = Astro.url.pathname;
+---
+
+<nav class="nav">
+  <a href="/" class="logo"><i></i>Baran Tabak</a>
+
+  <ul class="links">
+    {links.map((l) => (
+      <li>
+        <a href={l.href} class={current === l.href ? "active" : ""}>
+          {current === l.href ? `[${l.label}]` : l.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="status">
+    <span class="dot"></span>işe açık
+    <span class="lang"><b>TR</b> / EN</span>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px var(--pad);
+    border-bottom: 1px solid var(--cloud-line);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 21px;
+  }
+  .logo i {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+  .links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+  .links a { color: var(--cloud-dim); transition: color 0.2s; }
+  .links a:hover,
+  .links a.active { color: var(--cloud); }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--cloud-dim);
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 0 5px rgba(242, 84, 45, 0.25);
+  }
+  .lang {
+    margin-left: 14px;
+    padding-left: 14px;
+    border-left: 1px solid var(--cloud-line);
+  }
+  .lang b { color: var(--amber); }
+</style>

@@ -1,0 +1,53 @@
+/* ---- Tasarım değişkenleri (tek yerden yönetilir) ---- */
+
+
+@font-face {
+  font-family: "Adventor";
+  src: url("/fonts/texgyreadventor-regular.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Adventor";
+  src: url("/fonts/texgyreadventor-bold.woff") format("woff");
+  font-weight: 700;
+  font-display: swap;
+}
+
+
+:root {
+  --sky-900: #1466B0;
+  --sky-700: #2582D0;
+  --sky-500: #3797E0;
+  --sky-300: #4FA9EA;
+
+  --cloud: #F3F6F9;
+  --cloud-dim: rgba(243, 246, 249, 0.72);
+  --cloud-line: rgba(243, 246, 249, 0.35);
+
+  --amber: #F2542D;
+
+  --font-display: "Adventor", system-ui, sans-serif;
+  --font-mono: "DejaVu Mono", ui-monospace, monospace;
+
+  --pad: 60px; /* sayfa kenar boşluğu */
+}
+
+/* ---- Basit sıfırlama ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-font-smoothing: antialiased; }
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-display);
+  color: var(--cloud);
+  /* Arka plan: dikey blueprint çizgileri + gök mavisi gradient */
+  background:
+    linear-gradient(90deg, rgba(243, 246, 249, 0.12) 1px, transparent 1px) 0 0 / 120px 100%,
+    linear-gradient(180deg, var(--sky-300) 0%, var(--sky-500) 22%, var(--sky-700) 55%, var(--sky-900) 100%);
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+

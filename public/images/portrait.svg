@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760">
+  <defs>
+    <linearGradient id="sw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#123A66"/><stop offset="1" stop-color="#0B2645"/></linearGradient>
+    <linearGradient id="sk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#DCEFFB"/><stop offset="1" stop-color="#9CCBEB"/></linearGradient>
+    <linearGradient id="hr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1D4F82"/><stop offset="1" stop-color="#0E2D52"/></linearGradient>
+  </defs>
+  <path d="M30 760 C40 615 125 545 232 522 L368 522 C475 545 560 615 570 760 Z" fill="url(#sw)"/>
+  <path d="M232 522 L300 610 L368 522 Z" fill="#F3F6F9"/>
+  <path d="M250 522 L300 585 L350 522 Z" fill="#9CCBEB"/>
+  <path d="M258 428 L342 428 L350 526 C320 556 280 556 250 526 Z" fill="#A9D3EF"/>
+  <ellipse cx="197" cy="328" rx="19" ry="32" fill="#A9D3EF"/>
+  <ellipse cx="403" cy="328" rx="19" ry="32" fill="#9CCBEB"/>
+  <path d="M300 150 C385 150 410 225 408 310 C406 400 360 468 300 468 C240 468 194 400 192 310 C190 225 215 150 300 150 Z" fill="url(#sk)"/>
+  <path d="M188 300 C172 196 232 118 312 120 C398 122 438 192 412 300 C405 252 386 222 362 208 C332 232 268 238 222 220 C204 238 194 262 188 300 Z" fill="url(#hr)"/>
+</svg>

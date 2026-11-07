@@ -1,0 +1,252 @@
+---
+// Değiştirilebilir içerikler tek yerde
+const name = { first: "Baran", last: "Tabak" };
+const ringText =
+  "yazılım_mühendisi ✦ full-stack ✦ makine_öğrenmesi ✦ endüstriyel_sistemler ✦ işe_açık ✦ karabük ✦ ";
+const coords = { lat: "41.2061", lon: "32.6204" };
+const stack = "ts · python · go";
+---
+
+<section class="hero">
+  <!-- Blueprint süsleri -->
+  <div class="axis-x" aria-hidden="true"></div>
+  <div class="axis-y" aria-hidden="true"></div>
+  <span class="cross left" aria-hidden="true"></span>
+  <span class="cross right" aria-hidden="true"></span>
+  <span class="note left" aria-hidden="true">şek.01 — portre<br />ø 580px</span>
+  <span class="note right" aria-hidden="true">lat {coords.lat}<br />lon {coords.lon}</span>
+
+  <!-- Portre + dönen yazı -->
+  <div class="orbit">
+    <svg class="ring" viewBox="0 0 680 680" aria-hidden="true">
+      <defs>
+        <path id="ring-path" d="M340,340 m-320,0 a320,320 0 1,1 640,0 a320,320 0 1,1 -640,0" />
+      </defs>
+      <text><textPath href="#ring-path">{ringText}</textPath></text>
+    </svg>
+    <div class="circle">
+      <img src="/images/portrait.svg" alt={`${name.first} ${name.last} portresi`} />
+    </div>
+  </div>
+
+  <!-- İsim -->
+  <p class="hello">// merhaba dünya, ben <b>→</b></p>
+  <h1 class="name">
+    <span class="first">{name.first}</span>{" "}
+    <span class="last">{name.last}<i class="cursor" aria-hidden="true"></i></span>
+  </h1>
+
+  <!-- Sol: kısa tanıtım -->
+  <div class="intro">
+    <p>Karmaşık gerçek dünya verisi için <b>sade ve sağlam sistemler</b> geliştiren bir bilgisayar mühendisiyim.</p>
+    <dl>
+      <dt>teknoloji</dt><dd>{stack}</dd>
+      <dt>durum</dt><dd>işe_açık</dd>
+    </dl>
+  </div>
+
+  <!-- Sağ: butonlar -->
+  <div class="actions">
+    <a href="#projeler" class="btn primary">projelere_bak() ↗</a>
+    <a href="/cv.pdf" class="btn ghost" download>cv_indir.pdf</a>
+  </div>
+
+  <a href="#projeler" class="scroll"><span>↓</span>kaydır</a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    height: 830px;
+    overflow: hidden;
+  }
+
+  /* ---- Blueprint süsleri ---- */
+  .axis-x {
+    position: absolute;
+    left: var(--pad);
+    right: var(--pad);
+    top: 370px;
+    border-top: 1px dashed rgba(243, 246, 249, 0.5);
+  }
+  .axis-y {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    bottom: 120px;
+    border-left: 1px dashed rgba(243, 246, 249, 0.5);
+  }
+  .cross {
+    position: absolute;
+    top: 40px;
+    width: 22px;
+    height: 22px;
+  }
+  .cross::before,
+  .cross::after {
+    content: "";
+    position: absolute;
+    background: var(--cloud);
+  }
+  .cross::before { left: 10px; width: 2px; height: 100%; }
+  .cross::after { top: 10px; height: 2px; width: 100%; }
+  .cross.left { left: var(--pad); }
+  .cross.right { right: var(--pad); }
+
+  .note {
+    position: absolute;
+    top: 76px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .note.left { left: var(--pad); }
+  .note.right { right: var(--pad); text-align: right; }
+
+  /* ---- Portre + halka ---- */
+  .orbit {
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    width: 680px;
+    height: 680px;
+    transform: translateX(-50%);
+  }
+  .ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    animation: spin 40s linear infinite;
+  }
+  .ring text {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    letter-spacing: 8.6px;
+    fill: var(--cloud);
+  }
+  .circle {
+    position: absolute;
+    inset: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: radial-gradient(circle at 35% 30%, #ff8a5c, var(--amber) 55%, #d9401c);
+    box-shadow: 0 40px 100px rgba(14, 42, 71, 0.28);
+  }
+  .circle img {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    width: 93%;
+    transform: translateX(-50%);
+  }
+
+  /* ---- İsim ---- */
+  .hello {
+    position: absolute;
+    left: var(--pad);
+    top: 250px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--cloud-dim);
+  }
+  .hello b { color: var(--amber); font-weight: 400; }
+
+.name {
+  font-size: clamp(96px, 9.6vw, 150px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+  .name span {
+    position: absolute;
+    top: 290px;
+  }
+  .first { left: var(--pad); }
+  .last { right: var(--pad); }
+  .cursor {
+    display: inline-block;
+    width: 26px;
+    height: 0.73em;
+    margin-left: 12px;
+    background: var(--amber);
+    animation: blink 1.1s steps(2, start) infinite;
+  }
+
+  /* ---- Tanıtım ---- */
+  .intro {
+    position: absolute;
+    left: var(--pad);
+    top: 500px;
+    width: 300px;
+  }
+  .intro p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--cloud-dim);
+  }
+  .intro p b { color: var(--cloud); font-weight: 400; }
+  .intro dl {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    row-gap: 8px;
+    margin-top: 26px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .intro dt { color: var(--cloud-dim); }
+
+  /* ---- Butonlar ---- */
+  .actions {
+    position: absolute;
+    right: var(--pad);
+    top: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 14px;
+  }
+  .btn {
+    padding: 17px 28px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    transition: transform 0.2s, background 0.2s, color 0.2s;
+  }
+  .btn.primary { background: var(--amber); color: #fff; font-weight: 700; }
+  .btn.ghost { border: 1px solid var(--cloud); }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.ghost:hover { background: var(--cloud); color: var(--sky-900); }
+
+  /* ---- Kaydır göstergesi ---- */
+  .scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--cloud-dim);
+  }
+  .scroll span {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: 1.5px solid var(--cloud);
+    border-radius: 50%;
+    font-size: 20px;
+    color: var(--cloud);
+  }
+
+  /* ---- Animasyonlar ---- */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes blink { to { visibility: hidden; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ring, .cursor { animation: none; }
+  }
+</style>

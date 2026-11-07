@@ -1,0 +1,112 @@
+---
+const email = "seninmailin@ornek.com"; // kendi mailinle değiştir
+const links = [
+  { label: "github", href: "https://github.com/kullaniciadin" },
+  { label: "linkedin", href: "https://linkedin.com/in/kullaniciadin" },
+  { label: "cv.pdf ↓", href: "/cv.pdf", download: true },
+];
+const year = new Date().getFullYear();
+---
+
+<section id="iletisim" class="contact">
+  <p class="prompt"><b>$</b> ./iletisim --simdi</p>
+
+  <h2 data-reveal>
+    Birlikte bir şey<br />
+    <a href={`mailto:${email}`} class="dot" aria-label="Bana e-posta gönder">↗</a> üretelim
+  </h2>
+
+  <ul class="links">
+    <li><a href={`mailto:${email}`} class="mail">{email}</a></li>
+    {links.map((l) => (
+      <li>
+        <a
+          href={l.href}
+          {...(l.download ? { download: true } : { target: "_blank", rel: "noopener" })}
+        >
+          {l.label}{!l.download && " ↗"}
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<footer class="footer">
+  <span>© {year} baran tabak</span>
+  <span>özenle ve kahveyle yapıldı</span>
+  <a href="#">başa_dön ↑</a>
+</footer>
+
+<style>
+  .contact {
+    padding: 170px var(--pad) 0;
+    text-align: center;
+  }
+  .prompt {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--cloud-dim);
+  }
+  .prompt b { color: var(--amber); font-weight: 400; }
+
+  h2 {
+    margin-top: 26px;
+    font-size: 148px;
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  .dot {
+    display: inline-block;
+    width: 118px;
+    height: 118px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: var(--amber);
+    font-size: 40px;
+    line-height: 118px;
+    letter-spacing: 0;
+    vertical-align: middle;
+    position: relative;
+    top: -10px;
+    transition: transform 0.3s;
+  }
+  .dot:hover { transform: rotate(45deg) scale(1.08); }
+
+  .links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 80px;
+    border-top: 1px solid var(--cloud);
+    list-style: none;
+    text-align: left;
+  }
+  .links li + li {
+    padding-left: 24px;
+    border-left: 1px solid var(--cloud-line);
+  }
+  .links a {
+    display: block;
+    padding: 28px 0;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    transition: color 0.2s;
+  }
+  .links a:hover { color: var(--amber); }
+  .mail {
+    text-decoration: underline;
+    text-decoration-color: var(--amber);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 8px;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 70px var(--pad) 50px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--cloud-dim);
+  }
+  .footer a:hover { color: var(--cloud); }
+</style>

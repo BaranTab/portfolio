@@ -1,0 +1,31 @@
+---
+import "@fontsource/dejavu-mono";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Baran Tabak — Yazılım Mühendisi",
+  description = "Bilgisayar mühendisi Baran Tabak'ın portfolyosu.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      import "../scripts/animations.ts";
+    </script>
+  </body>
+</html>
