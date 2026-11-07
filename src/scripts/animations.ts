@@ -77,3 +77,71 @@ gsap.utils.toArray<HTMLElement>(".projects .row").forEach((row) => {
     yTo(y);
   });
 });
+
+// ---------- 6. Daktilo efekti ----------
+
+// Bir başlığın içindeki metni harf harf <span> etiketlerine böler.
+// İç içe etiketleri (örn. .outline) korur, <br> etiketlerine dokunmaz.
+function splitForTyping(el: HTMLElement): HTMLElement[] {
+  const units: HTMLElement[] = [];
+
+  const walk = (node: Node) => {
+    Array.from(node.childNodes).forEach((child) => {
+      if (child.nodeType === Node.TEXT_NODE) {
+        const fragment = document.createDocumentFragment();
+        for (const ch of Array.from(child.textContent ?? "")) {
+          if (/\s/.test(ch)) {
+            fragment.append(document.createTextNode(ch)); // boşluklar satır kırılımı için düz metin kalır
+            continue;
+          }
+          const span = document.createElement("span");
+          span.className = "tw-char";
+          span.textContent = ch;
+          fragment.append(span);
+          units.push(span);
+        }
+        child.replaceWith(fragment);
+      } else if (child instanceof HTMLElement) {
+        if (child.tagName === "BR") return;
+        if (child.hasAttribute("data-type-unit")) {
+          child.classList.add("tw-char");
+          units.push(child); // bölünmeden tek parça olarak yazılır
+          return;
+        }
+        walk(child); // iç içe etiketlerin içine de gir
+      }
+    });
+  };
+
+  walk(el);
+  return units;
+}
+
+if (!reduceMotion) {
+  gsap.utils.toArray<HTMLElement>("[data-type], .prose h2").forEach((el) => {
+    // Ekran okuyucular başlığı harf harf değil, bütün olarak okusun
+    el.setAttribute("aria-label", (el.textContent ?? "").replace(/\s+/g, " ").trim());
+
+    const chars = splitForTyping(el);
+    let caret: HTMLElement | null = null;
+
+    gsap.set(chars, { opacity: 0 });
+    gsap.to(chars, {
+      opacity: 1,
+      duration: 0.01,
+      ease: "none",
+      stagger: {
+        each: 0.045, // harf başına süre: hızlandırmak için küçült
+        onStart: function (this: gsap.core.Tween) {
+          caret?.classList.remove("is-caret");
+          caret = this.targets()[0] as HTMLElement;
+          caret.classList.add("is-caret");
+        },
+      },
+      scrollTrigger: { trigger: el, start: "top 80%" },
+      onComplete: () => {
+        gsap.delayedCall(1.5, () => caret?.classList.remove("is-caret"));
+      },
+    });
+  });
+}

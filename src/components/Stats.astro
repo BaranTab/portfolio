@@ -1,5 +1,4 @@
 ---
-// Kendi gerçek rakamlarınla doldur
 const stats = [
   { value: "2", suffix: "yıl", label: "ajans dükkanı'nda geliştirme & prodüksiyon" },
   { value: "81", suffix: "il", label: "ajansdukkani.com'un kapsadığı" },
@@ -10,9 +9,9 @@ const stats = [
 
 <section id="hakkimda" class="stats" aria-label="Kısaca ben">
   {stats.map((s) => (
-    <div class="item">
+    <div class="item" data-reveal>
       <p class="value">
-        {s.value}
+        <span data-count={s.value}>{s.value}</span>
         {s.suffix && <sup>{s.suffix}</sup>}
       </p>
       <p class="label">{s.label}</p>
@@ -27,16 +26,7 @@ const stats = [
     margin: 130px var(--pad) 0;
     border-top: 1px solid var(--cloud-line);
   }
-  
-
-    <div class="item" data-reveal>
-    <p class="value">
-      <span data-count={s.value}>{s.value}</span>
-      {s.suffix && <sup>{s.suffix}</sup>}
-    </p>
-    <p class="label">{s.label}</p>
-  </div>
-
+  .item { padding-top: 34px; }
   .item + .item {
     padding-left: 34px;
     border-left: 1px solid var(--cloud-line);
@@ -46,6 +36,7 @@ const stats = [
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
   }
   sup {
     margin-left: 4px;
@@ -60,8 +51,7 @@ const stats = [
     color: var(--cloud-dim);
   }
 
-
-    @media (max-width: 900px) {
+  @media (max-width: 900px) {
     .stats { grid-template-columns: repeat(2, 1fr); margin-top: 80px; }
     .item { padding-bottom: 30px; }
     .item + .item { padding-left: 0; border-left: 0; }
