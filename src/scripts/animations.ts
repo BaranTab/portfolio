@@ -15,17 +15,18 @@ if (!reduceMotion) {
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
 
-  // ---------- 2. Hero giriş animasyonu ----------
-  const intro = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
-  intro
-    .from(".hero .circle", { scale: 0.6, opacity: 0, duration: 1.2 })
-    .from(".hero .ring", { opacity: 0 }, "-=0.6")
-    .from(".hero .name span", { y: 80, opacity: 0, stagger: 0.12 }, "-=0.9")
-    .from(
-      [".hero .hello", ".hero .intro", ".hero .actions", ".hero .note", ".hero .scroll"],
-      { y: 20, opacity: 0, stagger: 0.06, duration: 0.7 },
-      "-=0.6"
-    );
+    if (document.querySelector(".hero")) {
+    const intro = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
+    intro
+      .from(".hero .circle", { scale: 0.6, opacity: 0, duration: 1.2 })
+      .from(".hero .ring", { opacity: 0 }, "-=0.6")
+      .from(".hero .name span", { y: 80, opacity: 0, stagger: 0.12 }, "-=0.9")
+      .from(
+        [".hero .hello", ".hero .intro", ".hero .actions", ".hero .note", ".hero .scroll"],
+        { y: 20, opacity: 0, stagger: 0.06, duration: 0.7 },
+        "-=0.6"
+      );
+  }
 
   // ---------- 3. Kaydırınca beliren öğeler ----------
   gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {

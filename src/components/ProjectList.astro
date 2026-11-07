@@ -23,7 +23,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
   <ul class="list">
     {projects.map((p, i) => (
       <li data-reveal>
-        <a class="row" href={p.data.link ?? p.data.github ?? "#"} target="_blank" rel="noopener">
+        <a class="row" href={`/projeler/${p.id}`}>
           <span class="no">{pad(i + 1)}</span>
           <h3>{p.data.title}</h3>
           <span class="meta">{p.data.stack.join(" · ")}</span>

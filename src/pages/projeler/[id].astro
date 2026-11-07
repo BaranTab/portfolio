@@ -1,0 +1,216 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Contact from "../../components/Contact.astro";
+
+export async function getStaticPaths() {
+  const projects = (await getCollection("projects")).sort(
+    (a, b) => a.data.order - b.data.order
+  );
+
+  return projects.map((project, index) => ({
+    params: { id: project.id },
+    props: {
+      project,
+      index,
+      next: projects[(index + 1) % projects.length],
+    },
+  }));
+}
+
+const { project, index, next } = Astro.props;
+const { Content } = await render(project);
+const d = project.data;
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<BaseLayout
+  title={`${d.title} — Baran Tabak`}
+  description={d.summary}
+  image={d.cover ?? "/og.jpg"}
+>
+  <Nav />
+
+  <main class="project">
+    <a href="/#projeler" class="back">← ./projeler</a>
+
+    <header class="head">
+      <span class="no">{pad(index + 1)}</span>
+      <h1>{d.title}</h1>
+      <p class="summary">{d.summary}</p>
+    </header>
+
+    <dl class="meta">
+      {d.role && (
+        <div><dt>rol</dt><dd>{d.role}</dd></div>
+      )}
+      <div><dt>yıl</dt><dd>{d.year}</dd></div>
+      <div><dt>teknoloji</dt><dd>{d.stack.join(" · ")}</dd></div>
+      <div>
+        <dt>bağlantı</dt>
+        <dd class="links">
+          {d.link && <a href={d.link} target="_blank" rel="noopener">siteyi_aç ↗</a>}
+          {d.github && <a href={d.github} target="_blank" rel="noopener">github ↗</a>}
+        </dd>
+      </div>
+    </dl>
+
+    {d.cover && <img class="cover" src={d.cover} alt={`${d.title} ekran görüntüsü`} />}
+
+    <article class="prose" data-reveal>
+      <Content />
+    </article>
+
+    {next.id !== project.id && (
+      <a href={`/projeler/${next.id}`} class="next">
+        <span>sonraki_proje →</span>
+        <strong>{next.data.title}</strong>
+      </a>
+    )}
+  </main>
+
+  <Contact />
+</BaseLayout>
+
+<style>
+  .project { padding: 60px var(--pad) 0; }
+
+  .back {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--cloud-dim);
+    transition: color 0.2s;
+  }
+  .back:hover { color: var(--amber); }
+
+  .head { margin-top: 60px; }
+  .no {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(243, 246, 249, 0.6);
+  }
+  h1 {
+    margin-top: 12px;
+    font-size: clamp(56px, 9vw, 140px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+  .summary {
+    max-width: 780px;
+    margin-top: 28px;
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--cloud-dim);
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 60px;
+    border-top: 1px solid var(--cloud);
+    border-bottom: 1px solid var(--cloud-line);
+  }
+  .meta div { padding: 22px 0; }
+  .meta div + div {
+    padding-left: 24px;
+    border-left: 1px solid var(--cloud-line);
+  }
+  .meta dt {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cloud-dim);
+  }
+  .meta dd { margin-top: 8px; font-size: 17px; }
+  .links { display: flex; gap: 18px; font-family: var(--font-mono); font-size: 15px; }
+  .links a {
+    text-decoration: underline;
+    text-decoration-color: var(--amber);
+    text-underline-offset: 6px;
+  }
+
+  .cover {
+    width: 100%;
+    margin-top: 60px;
+    border-radius: 8px;
+    box-shadow: 0 40px 80px rgba(14, 42, 71, 0.3);
+  }
+
+  /* Markdown içeriği: :global gerekli, çünkü bu etiketler <Content /> içinden geliyor */
+  .prose { max-width: 760px; margin-top: 80px; }
+  .prose :global(h2) {
+    margin: 64px 0 18px;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .prose :global(h2::before) {
+    content: "// ";
+    font-family: var(--font-mono);
+    font-size: 0.5em;
+    color: var(--amber);
+    vertical-align: middle;
+  }
+  .prose :global(p),
+  .prose :global(li) {
+    font-size: 18px;
+    line-height: 1.75;
+    color: rgba(243, 246, 249, 0.85);
+  }
+  .prose :global(p + p) { margin-top: 18px; }
+  .prose :global(strong) { color: var(--cloud); font-weight: 700; }
+  .prose :global(ul) { margin-top: 14px; padding-left: 22px; }
+  .prose :global(li + li) { margin-top: 8px; }
+  .prose :global(li::marker) { color: var(--amber); }
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(14, 42, 71, 0.35);
+  }
+
+  .next {
+    display: block;
+    margin-top: 120px;
+    padding: 50px 0;
+    border-top: 1px solid var(--cloud);
+    border-bottom: 1px solid var(--cloud-line);
+    transition: color 0.25s;
+  }
+  .next span {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--cloud-dim);
+  }
+  .next strong {
+    display: block;
+    margin-top: 10px;
+    font-size: clamp(44px, 7vw, 96px);
+    letter-spacing: -0.03em;
+  }
+  .next:hover { color: var(--amber); }
+
+  @media (max-width: 760px) {
+    .project { padding-top: 40px; }
+    .head { margin-top: 40px; }
+    .no { font-size: 44px; }
+    .summary { font-size: 18px; }
+    .meta { grid-template-columns: 1fr 1fr; }
+    .meta div + div { padding-left: 0; border-left: 0; }
+    .meta div:nth-child(even) {
+      padding-left: 18px;
+      border-left: 1px solid var(--cloud-line);
+    }
+    .prose { margin-top: 56px; }
+    .prose :global(h2) { font-size: 28px; margin-top: 48px; }
+    .prose :global(p),
+    .prose :global(li) { font-size: 16px; }
+    .next { margin-top: 80px; }
+  }
+</style>
