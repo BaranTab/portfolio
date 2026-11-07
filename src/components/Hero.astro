@@ -108,10 +108,11 @@ const stack = "ts · python · go";
     position: absolute;
     left: 50%;
     top: 30px;
-    width: 680px;
-    height: 680px;
+    width: clamp(420px, 47vw, 680px);
+    aspect-ratio: 1;
     transform: translateX(-50%);
   }
+
   .ring {
     position: absolute;
     inset: 0;
@@ -127,7 +128,7 @@ const stack = "ts · python · go";
   }
   .circle {
     position: absolute;
-    inset: 50px;
+    inset: 7.35%;
     border-radius: 50%;
     overflow: hidden;
     background: radial-gradient(circle at 35% 30%, #ff8a5c, var(--amber) 55%, #d9401c);
@@ -135,7 +136,7 @@ const stack = "ts · python · go";
   }
   .circle img {
     position: absolute;
-    bottom: -40px;
+    bottom: -6%;
     left: 50%;
     width: 93%;
     transform: translateX(-50%);
@@ -249,4 +250,55 @@ const stack = "ts · python · go";
   @media (prefers-reduced-motion: reduce) {
     .ring, .cursor { animation: none; }
   }
+
+  /* ---- Tablet ve telefon: parçaları alt alta diz ---- */
+  @media (max-width: 900px) {
+    .hero {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      padding: 40px var(--pad) 70px;
+    }
+
+    /* Süsleri gizle: dar ekranda kalabalık yapıyor */
+    .axis-x, .axis-y, .cross, .note, .scroll { display: none; }
+
+    .orbit {
+      position: relative;
+      left: auto;
+      top: auto;
+      transform: none;
+      width: min(100%, 440px);
+      margin: 0 auto;
+    }
+    .ring text { font-size: 17px; }
+
+    .hello { position: static; order: -1; margin-bottom: 24px; }
+
+    .name {
+      margin-top: 28px;
+      font-size: clamp(64px, 19vw, 120px);
+      line-height: 0.9;
+    }
+    .name span { position: static; display: block; }
+
+    .intro,
+    .actions {
+      position: static;
+      width: auto;
+    }
+    .intro { margin-top: 32px; max-width: 460px; }
+    .actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: stretch;
+      margin-top: 32px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cursor { width: 14px; margin-left: 8px; }
+    .actions .btn { flex: 1; text-align: center; }
+  }
+
 </style>

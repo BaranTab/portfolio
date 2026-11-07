@@ -30,7 +30,7 @@
   --font-display: "Adventor", system-ui, sans-serif;
   --font-mono: "DejaVu Mono", ui-monospace, monospace;
 
-  --pad: 60px; /* sayfa kenar boşluğu */
+  --pad: clamp(20px, 4.2vw, 60px);
 }
 
 /* ---- Basit sıfırlama ---- */

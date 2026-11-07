@@ -38,6 +38,7 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
+  /* ================= MASAÜSTÜ ================= */
   .contact {
     padding: 170px var(--pad) 0;
     text-align: center;
@@ -50,25 +51,28 @@ const year = new Date().getFullYear();
   .prompt b { color: var(--amber); font-weight: 400; }
 
   h2 {
+    --h: 148px; /* başlık boyutu: daire de bu değere göre ölçeklenir */
     margin-top: 26px;
-    font-size: 148px;
+    font-size: var(--h);
     font-weight: 700;
     line-height: 0.95;
     letter-spacing: -0.03em;
   }
   .dot {
-    display: inline-block;
-    width: 118px;
-    height: 118px;
-    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--h) * 0.8);
+    height: calc(var(--h) * 0.8);
+    margin-right: calc(var(--h) * 0.07);
     border-radius: 50%;
     background: var(--amber);
-    font-size: 40px;
-    line-height: 118px;
+    font-size: calc(var(--h) * 0.27);
+    line-height: 1;
     letter-spacing: 0;
     vertical-align: middle;
     position: relative;
-    top: -10px;
+    top: calc(var(--h) * -0.07);
     transition: transform 0.3s;
   }
   .dot:hover { transform: rotate(45deg) scale(1.08); }
@@ -109,4 +113,30 @@ const year = new Date().getFullYear();
     color: var(--cloud-dim);
   }
   .footer a:hover { color: var(--cloud); }
+
+  /* ================= TABLET (900px ve altı) ================= */
+  @media (max-width: 900px) {
+    .contact { padding-top: 110px; }
+    h2 { --h: clamp(44px, 12vw, 148px); }
+
+    .links { grid-template-columns: repeat(2, 1fr); margin-top: 56px; }
+    .links li { border-bottom: 1px solid var(--cloud-line); }
+    .links li + li { padding-left: 0; border-left: 0; }
+    .links li:nth-child(even) {
+      padding-left: 20px;
+      border-left: 1px solid var(--cloud-line);
+    }
+  }
+
+  /* ================= TELEFON (640px ve altı) ================= */
+  @media (max-width: 640px) {
+    .links { grid-template-columns: 1fr; }
+    .links li:nth-child(even) { padding-left: 0; border-left: 0; }
+    .links a { padding: 20px 0; font-size: 15px; }
+    .footer {
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 50px;
+    }
+  }
 </style>

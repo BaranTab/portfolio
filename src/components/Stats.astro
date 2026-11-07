@@ -59,4 +59,18 @@ const stats = [
     font-size: 13px;
     color: var(--cloud-dim);
   }
+
+
+    @media (max-width: 900px) {
+    .stats { grid-template-columns: repeat(2, 1fr); margin-top: 80px; }
+    .item { padding-bottom: 30px; }
+    .item + .item { padding-left: 0; border-left: 0; }
+    .item:nth-child(even) {
+      padding-left: 24px;
+      border-left: 1px solid var(--cloud-line);
+    }
+    .item:nth-child(n + 3) { border-top: 1px solid var(--cloud-line); }
+    .value { font-size: clamp(56px, 14vw, 104px); }
+    sup { font-size: 0.36em; }
+  }
 </style>

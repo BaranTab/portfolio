@@ -80,4 +80,21 @@ const current = Astro.url.pathname;
     border-left: 1px solid var(--cloud-line);
   }
   .lang b { color: var(--amber); }
+
+    @media (max-width: 760px) {
+    .nav {
+      flex-wrap: wrap;
+      row-gap: 18px;
+    }
+    .links {
+      order: 3;
+      width: 100%;
+      gap: 24px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+    .status { font-size: 12px; }
+    .lang { margin-left: 8px; padding-left: 8px; }
+  }
+
 </style>
