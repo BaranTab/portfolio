@@ -12,6 +12,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
     "@fontsource/dejavu-mono": "^5.3.0",
     "astro": "^7.4.7",
     "gsap": "^3.15.1",
