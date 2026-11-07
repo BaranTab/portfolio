@@ -3,13 +3,13 @@
 
 @font-face {
   font-family: "Adventor";
-  src: url("/fonts/texgyreadventor-regular.woff") format("woff");
+  src: url("/fonts/texgyreadventor-regular.otf") format("opentype");
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: "Adventor";
-  src: url("/fonts/texgyreadventor-bold.woff") format("woff");
+  src: url("/fonts/texgyreadventor-bold.otf") format("opentype");
   font-weight: 700;
   font-display: swap;
 }
